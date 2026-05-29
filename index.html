@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shaiera Shera — Portfolio</title>
+<style>
+
+/* ── FONT ── */
+@font-face {
+  font-family: 'Comicoro';
+  src: url('Comicoro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ── RESET ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── BODY / BACKGROUND ── */
+body {
+  font-family: 'Comicoro', monospace;
+  color: var(--dark);
+  background: var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 19px, var(--grid-color) 20px),
+    repeating-linear-gradient(90deg, transparent, transparent 19px, var(--grid-color) 20px),
+    var(--bg-image);
+  background-size: auto, auto, var(--bg-size);
+  background-position: 0 0, 0 0, var(--bg-position);
+  background-repeat: repeat, repeat, no-repeat;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 54px;
+}
+
+/* ── DESKTOP ICONS ── */
+.desktop-icons {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 44px;
+  pointer-events: none;
+}
+
+.desktop-icon {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 6px 8px;
+  width: 72px;
+  text-decoration: none;
+  color: var(--icon-color);
+  pointer-events: all;
+  user-select: none;
+}
+
+.desktop-icon:hover,
+.desktop-icon.active {
+  background: rgba(0,0,0,0.12);
+  box-shadow: inset 0 0 0 1px var(--icon-color);
+  border-radius: 4px;
+}
+
+.desktop-icon .icon-box {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.988rem;
+  background: transparent;
+  border: none;
+}
+
+.desktop-icon span {
+  color: var(--icon-label);
+  font-size: 0.956rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 1px 3px;
+}
+
+/* ── FLOATING WINDOW ── */
+.window {
+  position: absolute;
+  top: 40px;
+  left: calc(50% - 100px);
+  transform: translateX(-50%);
+  width: 720px;
+  max-width: calc(100vw - 40px);
+  background: var(--win-bg);
+  border: 2px solid var(--dark);
+  box-shadow: var(--win-shadow);
+  display: flex;
+  flex-direction: column;
+  min-height: 470px;
+  z-index: 100;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ── TITLE BAR ── */
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--dark);
+  cursor: grab;
+  background: var(--title-bg);
+  color: var(--accent);
+  user-select: none;
+  padding: 0 10px;
+}
+
+.title-bar:active { cursor: grabbing; }
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.title-label {
+  font-size: 1.538rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-right: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+.title-input-line {
+  padding: 5px 10px;
+  font-size: 1.438rem;
+  color: var(--accent);
+  font-family: 'Comicoro', monospace;
+  border-right: 2px solid var(--accent);
+  width: 160px;
+}
+
+.title-bar-controls { display: flex; }
+
+.win-btn {
+  width: 32px;
+  height: 30px;
+  border: none;
+  border-left: 2px solid var(--accent);
+  background: var(--title-bg);
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 1.538rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.win-btn:hover { background: var(--accent); color: var(--dark); }
+
+/* ── WINDOW BODY ── */
+.window-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px 16px;
+  position: relative;
+}
+
+.window-body-top {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+/* ── ABOUT PANEL ── */
+.bio { flex: 1; }
+
+.bio h1 {
+  font-size: 1.988rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.bio p {
+  font-size: 1.468rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.skills {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skills p {
+  font-size: 1.288rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.photo-box {
+  width: 230px;
+  height: 230px;
+  border: 2px solid var(--dark);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  overflow: hidden;
+  box-shadow: 3px 3px 0 var(--dark);
+}
+
+.photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.2);
+  transform-origin: center center;
+}
+
+.window-body-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.deco { font-size: 2.288rem; display: flex; gap: 10px; align-items: flex-end; }
+
+.tags { display: flex; flex-direction: column; gap: 4px; }
+.tags span { font-size: 1.468rem; color: var(--text); }
+.tags span::before { content: '• '; }
+
+/* ── RESUME PANEL ── */
+#panel-resume {
+  overflow-y: auto;
+  max-height: calc(100vh - 160px);
+}
+
+#panel-resume::-webkit-scrollbar { width: 8px; }
+#panel-resume::-webkit-scrollbar-track { background: transparent; }
+#panel-resume::-webkit-scrollbar-thumb { background: var(--dark); }
+
+.resume { display: flex; flex-direction: column; gap: 16px; padding-bottom: 16px; }
+
+.resume-header { text-align: center; border-bottom: 2px solid var(--dark); padding-bottom: 12px; }
+.resume-header h1 { font-size: 1.6rem; margin-bottom: 4px; }
+.resume-header p { font-size: 1.263rem; color: var(--text); line-height: 1.5; }
+
+.resume-section h2 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--dark);
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+
+.resume-entry { margin-top: 10px; }
+
+.resume-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.263rem;
+}
+
+.resume-row > strong { margin-right: 2px; }
+.resume-row span { font-size: 1.213rem; opacity: 0.8; white-space: nowrap; margin-left: auto; padding-left: 10px; }
+
+.resume-entry p,
+.resume-entry ul { font-size: 1.263rem; color: var(--text); line-height: 1.6; }
+
+.resume-entry ul { padding-left: 18px; }
+.resume-entry ul li { margin-bottom: 2px; }
+
+.resume-download {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 10px;
+  border: 2px solid var(--dark);
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Comicoro', monospace;
+  font-weight: 700;
+  align-self: flex-start;
+  letter-spacing: 1px;
+}
+
+.resume-download:hover { background: var(--dark); color: var(--win-bg); }
+
+/* ── PORTFOLIO PANEL ── */
+#panel-portfolio {
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 160px);
+}
+
+#panel-portfolio::-webkit-scrollbar { width: 8px; }
+#panel-portfolio::-webkit-scrollbar-track { background: transparent; }
+#panel-portfolio::-webkit-scrollbar-thumb { background: var(--dark); }
+
+/* ── CONTACT PANEL ── */
+.contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.263rem;
+  color: var(--text);
+}
+
+.contact-row span {
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  width: 60px;
+}
+
+.contact-btn {
+  font-family: 'Comicoro', monospace;
+  font-size: 1.263rem;
+  font-weight: 700;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--dark);
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.contact-btn:hover { text-decoration: underline; }
+
+/* ── TASKBAR ── */
+.taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 54px;
+  background: var(--task-bg);
+  border-top: 2px solid var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.taskbar-left { display: flex; align-items: center; gap: 4px; }
+
+.task-btn {
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--dark);
+  background: var(--task-btn-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.538rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--dark);
+  font-family: 'Comicoro', monospace;
+  font-weight: 700;
+}
+
+.task-btn:hover { background: var(--dark); color: var(--accent); }
+
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.468rem;
+  font-family: 'Comicoro', monospace;
+  color: var(--accent);
+}
+
+/* ── LOADING SCREEN ── */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #180018;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding-left: calc(50% - 130px);
+  z-index: 99999;
+  transition: opacity 0.5s ease;
+}
+
+#loader.fade-out { opacity: 0; pointer-events: none; }
+
+#loader-text {
+  color: #C1DBE3;
+  font-family: 'Comicoro', monospace;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.dot { opacity: 0; animation: dotAppear 1.2s infinite; }
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.4s; }
+.dot:nth-child(3) { animation-delay: 0.8s; }
+
+@keyframes dotAppear {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: 1; }
+}
+
+#loader-bar-wrap {
+  width: 260px;
+  height: 18px;
+  border: 2px solid #C1DBE3;
+}
+
+#loader-bar {
+  height: 100%;
+  width: 0%;
+  background: #C1DBE3;
+  transition: width 0.05s linear;
+}
+
+/* ── CRT SCANLINES ── */
+.crt::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.08) 0px,
+    rgba(0,0,0,0.08) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.crt::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── PANEL VISIBILITY ── */
+.panel { display: none; }
+.panel.active { display: flex; flex-direction: column; }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LOADING SCREEN
+══════════════════════════════════════════ -->
+<div id="loader">
+  <div id="loader-text">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+  <div id="loader-bar-wrap">
+    <div id="loader-bar"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DESKTOP ICONS
+══════════════════════════════════════════ -->
+<div class="desktop-icons">
+  <a class="desktop-icon active" data-panel="about"     style="top:30px;  left:24px;" onclick="openPanel(event,'about','About Me')">
+    <div class="icon-box"><img id="icon-about" src="icons/Profile_Icon.png" alt="About Me" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>About Me</span>
+  </a>
+  <a class="desktop-icon"        data-panel="resume"    style="top:150px; left:24px;" onclick="openPanel(event,'resume','Resume')">
+    <div class="icon-box"><img id="icon-resume" src="icons/Page_Icon.png" alt="Resume" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>Resume</span>
+  </a>
+  <a class="desktop-icon"        data-panel="projects" style="top:270px; left:24px;" onclick="openPanel(event,'guestbook','Projects')">
+    <div class="icon-box"><img id="icon-projects" src="icons/Book_Icon.png" alt="Projects" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>Projects</span>
+  </a>
+  <a class="desktop-icon"        data-panel="portfolio" style="top:390px; left:24px;" onclick="openPanel(event,'portfolio','Portfolio')">
+    <div class="icon-box"><img id="icon-portfolio" src="icons/Folder_Icon.png" alt="Portfolio" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>Portfolio</span>
+  </a>
+  <a class="desktop-icon"        data-panel="contact"   style="top:510px; left:24px;" onclick="openPanel(event,'contact','Contact Me')">
+    <div class="icon-box"><img id="icon-contact" src="icons/Message_Icon.png" alt="Contact Me" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>Contact Me</span>
+  </a>
+  <a class="desktop-icon"        data-panel="more"      style="top:510px; right:24px;" onclick="openPanel(event,'more','More')">
+    <div class="icon-box"><img id="icon-kitty" src="icons/Kitty_Icon.png" alt="More" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>More</span>
+  </a>
+  <a class="desktop-icon"        id="notepad-icon"      style="top:30px;  right:24px;" onclick="openNotepad()">
+    <div class="icon-box"><img id="icon-notepad" src="icons/Notepad_Icon.png" alt="Notepad" style="width:36px; height:36px; object-fit:contain;" /></div>
+    <span>Notepad</span>
+  </a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MAIN WINDOW
+══════════════════════════════════════════ -->
+<div class="window" id="mainWindow">
+  <div class="title-bar" id="titleBar">
+    <div class="title-bar-left">
+      <div class="title-label" id="windowTitle">About Me</div>
+      <div class="title-input-line">shaiera_shera.exe</div>
+    </div>
+    <div class="title-bar-controls">
+      <button class="win-btn" onclick="closeWindow()">✕</button>
+    </div>
+  </div>
+
+  <!-- ABOUT PANEL -->
+  <div class="window-body panel active" id="panel-about">
+    <div class="window-body-top">
+      <div class="bio">
+        <h1>Shaiera Shera</h1>
+        <p>Hi, I'm Shai, a computer science student at GSU with a passion for design and programming. Welcome to my website!</p>
+        <div class="skills">
+          <p><strong>CS Languages:</strong> Java, Python, R, GML</p>
+          <p><strong>Languages:</strong> Bangla, French, English</p>
+          <p><strong>Tools:</strong> VS Code, Kiro, Adobe Suite, Blender, Maya</p>
+          <p><strong>Proficiencies:</strong> Graphic Design, 3D Modelling, Physical Modelling, Customer Service, Mentorship, Tutoring, Teaching, Translation, Management, Leadership</p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-start; gap:10px;">
+        <div class="photo-box">
+          <img src="bluepfp.png" alt="Shaiera Shera" />
+        </div>
+        <div class="tags">
+          <span>developer</span>
+          <span>designer</span>
+          <span>illustrator</span>
+        </div>
+      </div>
+    </div>
+    <div class="window-body-bottom">
+    </div>
+  </div>
+
+  <!-- RESUME PANEL -->
+  <div class="window-body panel" id="panel-resume">
+    <div class="resume">
+      <div class="resume-header">
+        <h1>Shaiera Sohel Shera</h1>
+        <p>Inquisitive computer science student with diverse background and experience in design, coding, UX/UI, and more</p>
+        <p>Atlanta, GA &nbsp;·&nbsp; Open to Relocation &nbsp;·&nbsp; +1 678-622-2261 &nbsp;·&nbsp; sshaiera@gmail.com</p>
+      </div>
+
+      <div class="resume-section">
+        <h2>Education</h2>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Georgia State University</strong> – <em>Computer Science B.S.</em><span>Aug 2021 – May 2022; Aug 2025 – Ongoing</span></div>
+          <ul>
+            <li>Dean's List Student</li>
+            <li>Relevant Coursework: Data Structures, Discrete Mathematics</li>
+          </ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Georgia Institute of Technology</strong> – <em>Student</em><span>Aug 2022 – May 2024</span></div>
+          <ul>
+            <li>Relevant Coursework: Introduction to Python, Intro to the Built Environment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>Experience</h2>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Georgia State University</strong> – <em>IT Technician</em><span>Ongoing</span></div>
+          <ul>
+            <li>Deliver Technical Support to faculty, staff, and students</li>
+            <li>Troubleshoot and resolve basic computer and network problems</li>
+            <li>Manage Help Desk inquiries and routing issues as necessary</li>
+            <li>Provide guidance on facility navigation and technology utilization (wireless network, printers, projectors, etc.)</li>
+          </ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Applerouth Tutoring Services</strong> – <em>Tutor</em><span>Feb 2024 – Jul 2024</span></div>
+          <ul>
+            <li>Tutored middle school students in various mathematics topics including Pre-Calculus, Algebra, Geometry, and more</li>
+            <li>Helped students prepare for Georgia Milestones by teaching test taking skills</li>
+            <li>Involved psychological coaching for students to boost confidence and improve outcomes</li>
+            <li>Managed a class of 15–20 students</li>
+          </ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Huntington Learning Center</strong> – <em>Tutor</em><span>Feb 2025 – Aug 2025</span></div>
+          <ul>
+            <li>Tutored all ages individually in supplemental math and reading topics</li>
+            <li>Managed student progress through a bespoke curriculum</li>
+            <li>Communicated with parents and supervisors on student progress and improvement plans</li>
+            <li>Assisted with homework and other tasks as needed</li>
+          </ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Artist and Designer</strong> – <em>Freelance</em><span>Ongoing</span></div>
+          <ul>
+            <li>Accepting commissions for logo designs, character designs, Twitch emotes, and more</li>
+            <li>Managing multiple projects at once through multiple stages as account manager</li>
+            <li>Sketching and prototyping models and designs for final product</li>
+          </ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>VGDev</strong> – <em>Software Developer, Artist</em><span>Feb 2025 – Aug 2025</span></div>
+          <ul>
+            <li>Character design, 3D Modelling, sprite work, and software development across multiple games</li>
+            <li>Created backgrounds for Dive that tie the theme of each level together</li>
+            <li>Designed main character and created mesh and textured in-game model for Project Obelisk</li>
+            <li>Contributed game logic with GML across multiple projects</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>Community + Leadership + Clubs</h2>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Governor's Honors Program (Visual Arts)</strong><span>2020</span></div>
+          <ul><li>Awarded attendance to prestigious 3 month-long program for developing art, professional, and leadership capabilities</li></ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Girls Who Code</strong> – <em>Project Manager</em><span>2019</span></div>
+          <ul><li>Organized meetings, managed outreach, coordinated events and critical internal meetings</li></ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-row"><strong>Asian Student Association</strong> – <em>President</em><span>2019</span></div>
+          <ul><li>Founding member; planned and led meetings, managed officers, spread Asian cultural appreciation</li></ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h2>Skills</h2>
+        <div class="resume-entry">
+          <p><strong>CS Languages:</strong> Java, Python, R, GML</p>
+          <p><strong>Languages:</strong> Bangla, French, English</p>
+          <p><strong>Tools &amp; Frameworks:</strong> VS Code, Kiro, Adobe Suite, Blender, Maya</p>
+          <p><strong>Proficiencies:</strong> Graphic Design, 3D Modelling, Physical Modelling, Customer Service, Mentorship, Tutoring, Teaching, Translation, Management, Leadership</p>
+        </div>
+      </div>
+
+      <a class="resume-download" href="Copy of Shaiera_Shera_resume.pdf" download>Download Resume</a>
+    </div>
+  </div>
+
+  <!-- PROJECTS PANEL -->
+  <div class="window-body panel" id="panel-guestbook" style="align-items:center; justify-content:center; min-height:300px;">
+    <h1 style="font-size:2rem; letter-spacing:3px; text-transform:uppercase; opacity:0.6;">Coming Soon</h1>
+  </div>
+
+  <!-- PORTFOLIO PANEL -->
+  <div class="window-body panel" id="panel-portfolio">
+    <img src="portfolio/hills.png" alt="Hills" style="width:100%; display:block;" />
+    <img src="portfolio/Point_Line_Plane.png" alt="Point Line Plane" style="width:100%; display:block; margin-top:22px;" />
+    <img src="portfolio/image.png" alt="Portfolio piece" style="width:100%; display:block; margin-top:22px;" />
+    <img src="portfolio/image1.png" alt="Portfolio piece" style="width:100%; display:block; margin-top:22px;" />
+    <img src="portfolio/Jack drawings.png" alt="Jack drawings" style="width:100%; display:block; margin-top:22px;" />
+    <img src="portfolio/Untitled_72.png" alt="Portfolio piece" style="width:100%; display:block; margin-top:22px;" />
+    <img src="portfolio/Untitled_76.png" alt="Portfolio piece" style="width:100%; display:block; margin-top:22px;" />
+    <img src="portfolio/Untitled_Artwork.png" alt="Portfolio piece" style="width:100%; display:block; margin-top:22px;" />
+  </div>
+
+  <!-- CONTACT PANEL -->
+  <div class="window-body panel" id="panel-contact">
+    <h1>Contact Me</h1>
+    <p style="font-size:1.263rem; margin-top:6px; color:var(--text);">Get in touch — I'd love to connect!</p>
+    <div class="contact-links">
+      <div class="contact-row">
+        <span>Email</span>
+        <button class="contact-btn" id="emailCopyBtn" onclick="copyEmail()" title="Copy email address">sshaiera@gmail.com</button>
+      </div>
+      <div class="contact-row">
+        <span>LinkedIn</span>
+        <a class="contact-btn" href="#" onclick="return false;" title="Coming soon">linkedin.com/in/yourprofile</a>
+      </div>
+      <div class="contact-row">
+        <span>GitHub</span>
+        <a class="contact-btn" href="https://github.com/sshai404" target="_blank" rel="noopener">github.com/sshai404</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORE PANEL -->
+  <div class="window-body panel" id="panel-more">
+    <div class="bio">
+      <h1>More about me!</h1>
+      <ul style="margin-top:12px; padding-left:18px; font-size:1.263rem; color:var(--text); line-height:1.9;">
+        <li>I used to be an architecture student</li>
+        <li>I love DIY! I am currently in the middle of flipping an airplane galley cart into a stylish coffee/bar cart</li>
+        <li>I cook a mean chicken dinner</li>
+        <li>I love playing Dungeons and Dragons and am in the progress of DMing my first game</li>
+        <li>Currently reading: <em>A Game of Thrones</em>, <em>Woman of Tomorrow</em>, <em>Absolute Batman</em> series</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- END #mainWindow -->
+
+<!-- ══════════════════════════════════════════
+     NOTEPAD WINDOW
+══════════════════════════════════════════ -->
+<div class="window" id="notepadWindow" style="display:none; top:80px; left:calc(50% + 180px); transform:none; width:400px; min-height:320px; z-index:101;">
+  <div class="title-bar" id="notepadTitleBar">
+    <div class="title-bar-left">
+      <div class="title-label">Notepad</div>
+      <div class="title-input-line">notes.txt</div>
+    </div>
+    <div class="title-bar-controls">
+      <button class="win-btn" onclick="closeNotepad()">✕</button>
+    </div>
+  </div>
+  <div style="display:flex; flex-direction:column; flex:1; padding:0;">
+    <textarea id="notepadArea" spellcheck="true" placeholder="Type your notes here…" style="flex:1; width:100%; min-height:280px; resize:none; border:none; outline:none; padding:16px 18px; font-family:'Comicoro',monospace; font-size:1.263rem; line-height:1.7; color:var(--dark); background:var(--win-bg); caret-color:var(--dark);"></textarea>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:2px solid var(--dark); padding:4px 12px; font-size:1.1rem; color:var(--text); opacity:0.7;">
+      <span id="notepad-saved">saved</span>
+      <button onclick="clearNotepad()" style="font-family:'Comicoro',monospace; font-size:1.1rem; background:transparent; border:none; cursor:pointer; color:var(--dark); padding:0; text-transform:uppercase; letter-spacing:1px;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Clear</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TASKBAR
+══════════════════════════════════════════ -->
+<footer class="taskbar">
+  <div class="taskbar-left">
+    <button class="task-btn" onclick="copyLink()" title="Copy link"
+      onmouseover="document.getElementById('icon-link').src = isDark ? 'icons/Link_Icon.png' : 'icons/Link_Icon_Dark.png'"
+      onmouseout="document.getElementById('icon-link').src = isDark ? 'icons/Link_Icon_Dark.png' : 'icons/Link_Icon.png'">
+      <img id="icon-link" src="icons/Link_Icon.png" alt="Copy link" style="width:20px; height:20px; object-fit:contain; vertical-align:middle;" />
+    </button>
+    <a class="task-btn" style="margin-left:5px;" href="#" onclick="return false;" title="Coming soon">in</a>
+    <a class="task-btn" style="margin-left:5px;" href="https://github.com/sshai404" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+  </div>
+  <div class="taskbar-right">
+    <span id="sunmoon" style="cursor:pointer; margin-right:5px;" onclick="toggleSunMoon()"><img src="icons/Sun_Icon.png" alt="Toggle theme" style="width:28px; height:28px; object-fit:contain; vertical-align:middle;" /></span>
+    <span id="crtToggle" style="cursor:pointer; margin-right:5px;" onclick="toggleCRT()" title="Toggle scanlines"><img id="icon-crt" src="icons/CRT_Icon.png" alt="CRT" style="width:28px; height:28px; object-fit:contain; vertical-align:middle;" /></span>
+    <div style="display:flex; flex-direction:column; align-items:center; line-height:1.2;">
+      <span id="clock" style="color:var(--clock-color); position:relative; top:3px;">00:00</span>
+      <span id="day"   style="color:var(--clock-color); font-size:1.625rem; position:relative; top:-5px;"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+
+/* ══════════════════════════════════════════
+   LOADING SCREEN
+══════════════════════════════════════════ */
+(function () {
+  const bar    = document.getElementById('loader-bar');
+  const loader = document.getElementById('loader');
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 12 + 3;
+    if (progress >= 100) {
+      progress = 100;
+      bar.style.width = '100%';
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 500);
+      }, 300);
+    } else {
+      bar.style.width = progress + '%';
+    }
+  }, 80);
+})();
+
+/* ══════════════════════════════════════════
+   THEMES
+══════════════════════════════════════════ */
+const LIGHT = {
+  '--bg':          '#C1DBE3',
+  '--bg-image':    'url("backgrounds/image.jpg")',
+  '--bg-position': 'center center',
+  '--bg-size':     'cover',
+  '--accent':      '#C1DBE3',
+  '--dark':        '#23022E',
+  '--win-bg':      'rgba(193,219,227,0.5)',
+  '--title-bg':    '#23022E',
+  '--text':        '#23022E',
+  '--task-bg':     'rgba(142,170,184,0.5)',
+  '--task-btn-bg': '#8EAAB8',
+  '--icon-color':  '#23022E',
+  '--icon-label':  '#23022E',
+  '--clock-color': '#23022E',
+  '--win-shadow':  '6px 6px 0 #23022E, 0 8px 32px rgba(35,2,46,0.35)',
+  '--grid-color':  'rgba(0,0,0,0.15)',
+};
+
+const DARK = {
+  '--bg':          '#180018',
+  '--bg-image':    'url("backgrounds/Untitled design.png")',
+  '--bg-position': 'center center',
+  '--bg-size':     'cover',
+  '--accent':      '#C1DBE3',
+  '--dark':        '#C1DBE3',
+  '--win-bg':      'rgba(24,0,24,0.5)',
+  '--title-bg':    '#180018',
+  '--text':        '#C1DBE3',
+  '--task-bg':     'rgba(46,50,69,0.5)',
+  '--task-btn-bg': '#2E3245',
+  '--icon-color':  '#C1DBE3',
+  '--icon-label':  '#C1DBE3',
+  '--clock-color': '#C1DBE3',
+  '--win-shadow':  '6px 6px 0 #C1DBE3, 0 8px 32px rgba(0,0,0,0.6)',
+  '--grid-color':  'rgba(193,219,227,0.15)',
+};
+
+function applyTheme(theme) {
+  const r = document.documentElement.style;
+  for (const [k, v] of Object.entries(theme)) r.setProperty(k, v);
+}
+
+let isDark = false;
+function toggleSunMoon() {
+  isDark = !isDark;
+  document.body.classList.toggle('dark-mode', isDark);
+
+  const icons = {
+    'icon-kitty':    ['icons/Kitty_Icon.png',   'icons/Kitty_Icon_Dark.png'],
+    'icon-about':    ['icons/Profile_Icon.png', 'icons/Profile_Icon_Dark.png'],
+    'icon-resume':   ['icons/Page_Icon.png',    'icons/Page_Icon_Dark.png'],
+    'icon-projects': ['icons/Book_Icon.png',    'icons/Book_Icon_Dark.png'],
+    'icon-portfolio':['icons/Folder_Icon.png',  'icons/Folder_Icon_Dark.png'],
+    'icon-contact':  ['icons/Message_Icon.png', 'icons/Message_Icon_Dark.png'],
+    'icon-notepad':  ['icons/Notepad_Icon.png', 'icons/Notepad_Icon_Dark.png'],
+    'icon-link':     ['icons/Link_Icon.png',    'icons/Link_Icon_Dark.png'],
+    'icon-crt':      ['icons/CRT_Icon.png',     'icons/CRT_Icon_Dark.png'],
+  };
+  for (const [id, [light, dark]] of Object.entries(icons)) {
+    const el = document.getElementById(id);
+    if (el) el.src = isDark ? dark : light;
+  }
+
+  document.getElementById('sunmoon').innerHTML = isDark
+    ? '<img src="icons/Moon_Icon.png" alt="Toggle theme" style="width:28px; height:28px; object-fit:contain; vertical-align:middle;" />'
+    : '<img src="icons/Sun_Icon.png" alt="Toggle theme" style="width:28px; height:28px; object-fit:contain; vertical-align:middle;" />';
+  applyTheme(isDark ? DARK : LIGHT);
+}
+
+applyTheme(LIGHT);
+
+/* ══════════════════════════════════════════
+   CLOCK
+══════════════════════════════════════════ */
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('day').textContent   = now.toLocaleDateString([], { weekday: 'short' }).toUpperCase();
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* ══════════════════════════════════════════
+   CRT TOGGLE
+══════════════════════════════════════════ */
+function toggleCRT() {
+  document.body.classList.toggle('crt');
+}
+
+/* ══════════════════════════════════════════
+   UTILITY
+══════════════════════════════════════════ */
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+}
+
+function copyEmail() {
+  navigator.clipboard.writeText('sshaiera@gmail.com');
+  const btn  = document.getElementById('emailCopyBtn');
+  const orig = btn.innerHTML;
+  btn.innerHTML = '✓ Copied!';
+  setTimeout(() => btn.innerHTML = orig, 1500);
+}
+
+/* ══════════════════════════════════════════
+   PANEL SWITCHING
+══════════════════════════════════════════ */
+function openPanel(e, panelId, title) {
+  if (e) e.preventDefault();
+  const win = document.getElementById('mainWindow');
+  win.style.display = 'flex';
+  document.getElementById('windowTitle').textContent = title;
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('active'));
+  document.querySelector('[data-panel="' + panelId + '"]').classList.add('active');
+}
+
+function closeWindow() {
+  document.getElementById('mainWindow').style.display = 'none';
+  document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('active'));
+}
+
+/* ══════════════════════════════════════════
+   MAIN WINDOW DRAG
+══════════════════════════════════════════ */
+(function () {
+  const win = document.getElementById('mainWindow');
+  const bar = document.getElementById('titleBar');
+  let dragging = false, ox = 0, oy = 0;
+
+  bar.addEventListener('mousedown', function (e) {
+    if (e.target.classList.contains('win-btn')) return;
+    dragging = true;
+    const rect = win.getBoundingClientRect();
+    ox = e.clientX - rect.left;
+    oy = e.clientY - rect.top;
+    win.style.transform = 'none';
+    win.style.left = rect.left + 'px';
+    win.style.top  = rect.top  + 'px';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    win.style.left = Math.min(Math.max(0, e.clientX - ox), window.innerWidth  - win.offsetWidth)  + 'px';
+    win.style.top  = Math.min(Math.max(0, e.clientY - oy), window.innerHeight - win.offsetHeight) + 'px';
+  });
+
+  document.addEventListener('mouseup', () => dragging = false);
+})();
+
+/* ══════════════════════════════════════════
+   NOTEPAD
+══════════════════════════════════════════ */
+(function () {
+  const win   = document.getElementById('notepadWindow');
+  const bar   = document.getElementById('notepadTitleBar');
+  const area  = document.getElementById('notepadArea');
+  const saved = document.getElementById('notepad-saved');
+  let dragging = false, ox = 0, oy = 0;
+  let saveTimer = null;
+
+  area.value = localStorage.getItem('notepad_content') || '';
+
+  area.addEventListener('input', function () {
+    saved.textContent = 'unsaved…';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      localStorage.setItem('notepad_content', area.value);
+      saved.textContent = 'saved';
+    }, 800);
+  });
+
+  bar.addEventListener('mousedown', function (e) {
+    if (e.target.classList.contains('win-btn')) return;
+    dragging = true;
+    const rect = win.getBoundingClientRect();
+    ox = e.clientX - rect.left;
+    oy = e.clientY - rect.top;
+    win.style.transform = 'none';
+    win.style.left = rect.left + 'px';
+    win.style.top  = rect.top  + 'px';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    win.style.left = Math.min(Math.max(0, e.clientX - ox), window.innerWidth  - win.offsetWidth)  + 'px';
+    win.style.top  = Math.min(Math.max(0, e.clientY - oy), window.innerHeight - win.offsetHeight) + 'px';
+  });
+
+  document.addEventListener('mouseup', () => dragging = false);
+})();
+
+function openNotepad() {
+  const win  = document.getElementById('notepadWindow');
+  const icon = document.getElementById('notepad-icon');
+  win.style.display = 'flex';
+  win.style.zIndex  = 200;
+  icon.classList.add('active');
+}
+
+function closeNotepad() {
+  document.getElementById('notepadWindow').style.display = 'none';
+  document.getElementById('notepad-icon').classList.remove('active');
+}
+
+function clearNotepad() {
+  const area = document.getElementById('notepadArea');
+  if (area.value && !confirm('Clear all notes?')) return;
+  area.value = '';
+  localStorage.removeItem('notepad_content');
+  document.getElementById('notepad-saved').textContent = 'saved';
+}
+
+</script>
+</body>
+</html>
