@@ -125,11 +125,52 @@ body {
     padding: 5px 8px;
   }
   .title-input-line {
-    font-size: 0.9rem;
-    width: auto;
-    padding: 5px 6px;
+    display: none;
   }
-}
+  /* About panel: photo > name > tags > body */
+  #panel-about .window-body-top {
+    flex-direction: column;
+    align-items: center;
+  }
+  #panel-about .photo-col {
+    order: 1;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+  #panel-about .photo-box {
+    margin: 0 auto;
+  }
+  #panel-about .tags {
+    display: none;
+  }
+  #panel-about .tags-mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  #panel-about .bio {
+    order: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #panel-about .bio-name {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  #panel-about .bio-text {
+    display: none;
+  }
+  #panel-about .skills {
+    width: 100%;
+    text-align: left;
+  }}
 
 /* ── TITLE BAR ── */
 .title-bar {
@@ -268,6 +309,7 @@ body {
 .tags { display: flex; flex-direction: column; gap: 4px; }
 .tags span { font-size: 1.468rem; color: var(--text); }
 .tags span::before { content: '• '; }
+.tags-mobile { display: none; }
 
 /* ── RESUME PANEL ── */
 #panel-resume {
@@ -560,17 +602,7 @@ body {
   <!-- ABOUT PANEL -->
   <div class="window-body panel active" id="panel-about">
     <div class="window-body-top">
-      <div class="bio">
-        <h1>Shaiera Shera</h1>
-        <p>Hi, I'm Shai, a computer science student at GSU with a passion for design and programming. Welcome to my website!</p>
-        <div class="skills">
-          <p><strong>CS Languages:</strong> Java, Python, R, GML</p>
-          <p><strong>Languages:</strong> Bangla, French, English</p>
-          <p><strong>Tools:</strong> VS Code, Kiro, Adobe Suite, Blender, Maya</p>
-          <p><strong>Proficiencies:</strong> Graphic Design, 3D Modelling, Physical Modelling, Customer Service, Mentorship, Tutoring, Teaching, Translation, Management, Leadership</p>
-        </div>
-      </div>
-      <div style="display:flex; flex-direction:column; align-items:flex-start; gap:10px;">
+      <div class="photo-col" style="display:flex; flex-direction:column; align-items:flex-start; gap:10px;">
         <div class="photo-box">
           <img src="image.jpg" alt="Shaiera Shera" />
         </div>
@@ -578,6 +610,21 @@ body {
           <span>developer</span>
           <span>designer</span>
           <span>illustrator</span>
+        </div>
+      </div>
+      <div class="bio">
+        <h1 class="bio-name">Shaiera Shera</h1>
+        <div class="tags tags-mobile">
+          <span>developer</span>
+          <span>designer</span>
+          <span>illustrator</span>
+        </div>
+        <p class="bio-text">Hi, I'm Shai, a computer science student at GSU with a passion for design and programming. Welcome to my website!</p>
+        <div class="skills">
+          <p><strong>CS Languages:</strong> Java, Python, R, GML</p>
+          <p><strong>Languages:</strong> Bangla, French, English</p>
+          <p><strong>Tools:</strong> VS Code, Kiro, Adobe Suite, Blender, Maya</p>
+          <p><strong>Proficiencies:</strong> Graphic Design, 3D Modelling, Physical Modelling, Customer Service, Mentorship, Tutoring, Teaching, Translation, Management, Leadership</p>
         </div>
       </div>
     </div>
