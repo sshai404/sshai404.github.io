@@ -1,6 +1,6 @@
 # Shaiera Shera — Portfolio Website
 
-A personal portfolio website with a retro desktop OS aesthetic, built with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies
+A personal portfolio website with a retro desktop OS aesthetic, built with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies.
 
 ## Features
 
@@ -9,22 +9,23 @@ A personal portfolio website with a retro desktop OS aesthetic, built with vanil
 - **CRT scanlines** — optional retro scanline overlay
 - **Loading screen** — animated boot sequence on page load
 - **Notepad widget** — a floating scratchpad with local auto-save
+- **Mini games** — playable Pong and Snake (desktop only)
 - **Panels** — About Me, Resume, Projects, Portfolio (art gallery), Contact, and More
-- **Responsive** — adapted layout for mobile screens
+- **Responsive** — adapted layout for mobile screens; games and notepad hidden on small screens
 - **Custom font** — uses `Comicoro.ttf` throughout
 
 ## File Structure
 
 ```
 Portfolio Website/
-├── index.html               # Main page — all HTML, CSS, and JS in one file
-├── Comicoro.ttf             # Custom font
-├── image.jpg                # Profile photo
-├── Copy of Shaiera_Shera_resume.pdf  # Downloadable resume
+├── index.html                        # Main page — all HTML, CSS, and JS in one file
+├── Comicoro.ttf                      # Custom font
+├── image.jpg                         # Profile photo
+├── Software_Engineering_Resume.docx  # Downloadable resume
 ├── backgrounds/
-│   ├── image.jpg
-│   └── Untitled design.png
-├── icons/                   # UI icons (light + dark variants)
+│   ├── image.jpg                     # Light mode background
+│   └── Untitled design.png           # Dark mode background
+├── icons/                            # UI icons (light + dark variants)
 │   ├── Profile_Icon.png / Profile_Icon_Dark.png
 │   ├── Page_Icon.png / Page_Icon_Dark.png
 │   ├── Book_Icon.png / Book_Icon_Dark.png
@@ -34,9 +35,11 @@ Portfolio Website/
 │   ├── Link_Icon.png / Link_Icon_Dark.png
 │   ├── CRT_Icon.png / CRT_Icon_Dark.png
 │   ├── Kitty_Icon.png / Kitty_Icon_Dark.png
+│   ├── Ping_Pong_Paddle_Icon.png / Pong_Paddle_dark_mode.png
+│   ├── snake_icon.png.png / Snake_Icon_Dark_Mode.png.png
 │   ├── Sun_Icon.png
 │   └── Moon_Icon.png
-└── portfolio/               # Art and design work images
+└── portfolio/                        # Art and design work images
     ├── hills.png
     ├── Point_Line_Plane.png
     ├── image.png
@@ -67,6 +70,21 @@ npx serve .
 | Message | Contact | Email, GitHub, LinkedIn |
 | Kitty | More | Fun facts |
 | Notepad | Notepad | Floating scratchpad (auto-saves to localStorage) |
+| Paddle | Pong | Single-player pong vs CPU (desktop only) |
+| Snake | Snake | Classic snake game (desktop only) |
+
+## Games
+
+Both games open as draggable windows and only one can be open at a time. Hidden on mobile.
+
+**Pong**
+- Left paddle is CPU-controlled
+- `↑` / `↓` — move right paddle
+- `Space` — start / pause
+
+**Snake**
+- Arrow keys or `WASD` — change direction
+- `Space` — start / pause
 
 ## Taskbar
 
