@@ -1,6 +1,6 @@
 # Shaiera Shera — Portfolio Website
 
-A personal portfolio website with a retro desktop OS aesthetic, built with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies — just vibes.
+A personal portfolio website with a retro desktop OS aesthetic, built with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies
 
 ## Features
 
