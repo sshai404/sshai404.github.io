@@ -117,7 +117,11 @@ body {
     overflow-y: auto;
   }
   #notepad-icon,
-  #notepadWindow {
+  #notepadWindow,
+  #pong-icon,
+  #snake-icon,
+  #pongWindow,
+  #snakeWindow {
     display: none !important;
   }
   .title-label {
@@ -597,11 +601,11 @@ body {
     <div class="icon-box"><img id="icon-notepad" src="icons/Notepad_Icon.png" alt="Notepad" style="width:36px; height:36px; object-fit:contain;" /></div>
     <span>Notepad</span>
   </a>
-  <a class="desktop-icon" style="top:150px; right:24px;" onclick="openGame('pong')">
+  <a class="desktop-icon" id="pong-icon" style="top:150px; right:24px;" onclick="openGame('pong')">
     <div class="icon-box"><img id="icon-pong" src="icons/Ping_Pong_Paddle_Icon.png" alt="Pong" style="width:36px; height:36px; object-fit:contain;" /></div>
     <span>Pong</span>
   </a>
-  <a class="desktop-icon" style="top:270px; right:24px;" onclick="openGame('snake')">
+  <a class="desktop-icon" id="snake-icon" style="top:270px; right:24px;" onclick="openGame('snake')">
     <div class="icon-box"><img id="icon-snake" src="icons/snake_icon.png.png" alt="Snake" style="width:36px; height:36px; object-fit:contain;" /></div>
     <span>Snake</span>
   </a>
