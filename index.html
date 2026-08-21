@@ -1287,6 +1287,7 @@ function initPong() {
     ctx.fillRect(W - 10 - PAD_W, rPad.y, PAD_W, PAD_H);
 
     // Ball
+    ctx.fillStyle = '#E03060';
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, BALL_R, 0, Math.PI * 2);
     ctx.fill();
